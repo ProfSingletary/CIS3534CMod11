@@ -1,0 +1,13 @@
+---
+- name: get ip address for a FishNet component
+  become: false
+  hosts: localhost
+  gather_facts: false
+  tasks:
+      - name: get router1 configuration
+        uri:
+            url: http://localhost:5000/get?hostname=router1
+            method: GET
+        register: results
+      - debug:
+            var: results

@@ -1,0 +1,20 @@
+---
+- name: set ip address for a FishNet component
+  become: false
+  hosts: localhost
+  gather_facts: false
+  tasks:
+      - name: set router1 ip address
+        uri:
+            url: http://localhost:5000/set
+            method: POST
+            body:
+                - [ token, '1bCFR3ObONg3o0gIhnspmVLCa2xPHRGC3yXpgBDPAPKSl9KU' ]
+                - [ hostname, 'router1' ]
+                - [ attribute, 'ipaddr' ]
+                - [ value, '192.16.10.10' ]
+            body_format: form-urlencoded
+            return_content: yes
+        register: results
+      - debug:
+            var: results

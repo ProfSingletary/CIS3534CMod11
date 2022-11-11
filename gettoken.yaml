@@ -1,0 +1,18 @@
+---
+- name: get FishNet token
+  become: false
+  hosts: localhost
+  gather_facts: false
+  tasks:
+      - name: get token from FishNet server
+        uri:
+            url: http://localhost:5000/login
+            method: POST
+            body:
+                - [ user, 'pyuser' ]
+                - [ password, 'cis3435!' ]
+            body_format: form-urlencoded
+            return_content: yes
+        register: results
+      - debug:
+            var: results['content']
